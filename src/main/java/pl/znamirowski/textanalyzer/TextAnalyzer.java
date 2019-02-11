@@ -22,6 +22,19 @@ public class TextAnalyzer {
         return topTen;
     }
 
+    public int countSentences() {
+        final String regex = "[a-zA-Z]+[^.?!]*[.?!]";
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(text);
+
+        int count = 0;
+
+        while (matcher.find())
+            ++count;
+
+        return count;
+    }
+
     private Map<String, Integer> findAndSortTenMostPopularWords(Map<String, Integer> words) {
         List<Map.Entry<String, Integer>> wordList = new ArrayList<>(words.entrySet());
         wordList.sort(Map.Entry.comparingByValue());
