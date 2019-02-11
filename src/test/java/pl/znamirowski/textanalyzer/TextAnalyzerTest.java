@@ -13,18 +13,16 @@ public class TextAnalyzerTest {
     public void shouldReturnEmptyMapWhenTextIsEmpty() {
         String text = "";
         TextAnalyzer analyzer = new TextAnalyzer(text);
-        Map<String, Integer> result = analyzer.topTenWords();
 
-        assertTrue(result.isEmpty());
+        assertTrue(analyzer.topTenWords().isEmpty());
     }
 
     @Test
     public void shouldReturnEmptyMapWhenNoWordIsLongerThanFive() {
         String text = "this is some text with short words";
         TextAnalyzer analyzer = new TextAnalyzer(text);
-        Map<String, Integer> result = analyzer.topTenWords();
 
-        assertTrue(result.isEmpty());
+        assertTrue(analyzer.topTenWords().isEmpty());
     }
 
     @Test
@@ -38,5 +36,19 @@ public class TextAnalyzerTest {
         assertEquals(3, result.get("abcabc").intValue());
         assertTrue(result.containsKey("abcdefabcdef"));
         assertEquals(1, result.get("abcdefabcdef").intValue());
+    }
+
+    @Test
+    public void shouldReturnTenWords() {
+        String text = "aaaaaa bbbbbb cccccc dddddd eeeeee ffffff gggggg "+
+                "hhhhhh iiiiii jjjjjj kkkkkk llllll mmmmmm nnnnnn";
+        TextAnalyzer analyzer = new TextAnalyzer(text);
+
+        assertEquals(10, analyzer.topTenWords().size());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldThrowExceptionWhenTextIsNull() {
+        new TextAnalyzer(null);
     }
 }
