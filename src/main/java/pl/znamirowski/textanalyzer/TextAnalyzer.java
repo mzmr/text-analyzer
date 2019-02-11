@@ -25,6 +25,7 @@ public class TextAnalyzer {
     private Map<String, Integer> findAndSortTenMostPopularWords(Map<String, Integer> words) {
         List<Map.Entry<String, Integer>> wordList = new ArrayList<>(words.entrySet());
         wordList.sort(Map.Entry.comparingByValue());
+        Collections.reverse(wordList);
 
         Map<String, Integer> popularWords = new LinkedHashMap<>();
         int wordsToAdd = wordList.size() > 10 ? 10 : wordList.size();

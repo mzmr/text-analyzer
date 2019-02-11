@@ -2,6 +2,7 @@ package pl.znamirowski.textanalyzer;
 
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -67,5 +68,47 @@ public class TextAnalyzerTest {
         assertEquals(2, result.get("cccddd").intValue());
         assertTrue(result.containsKey("qwer'ty"));
         assertEquals(1, result.get("qwer'ty").intValue());
+    }
+
+    @Test
+    public void shouldReturnTenMostPopularWords() {
+        StringBuilder sb = new StringBuilder();
+        Map<String, Integer> wordsToAppend = new HashMap<>();
+        wordsToAppend.put("ttttttt", 3);  // too few
+        wordsToAppend.put("sssssss", 4);
+        wordsToAppend.put("llllllll", 10);
+        wordsToAppend.put("cccccc", 11);
+        wordsToAppend.put("wwwwwwww", 13);
+        wordsToAppend.put("aaaa", 16);  // too short
+        wordsToAppend.put("hhhhhh", 17);
+        wordsToAppend.put("rrrrrr", 18);
+        wordsToAppend.put("xxxxxxx", 19);
+        wordsToAppend.put("b", 22);  // too short
+        wordsToAppend.put("bbbbbbb", 24);
+        wordsToAppend.put("yyyyyyyyy", 26);
+        wordsToAppend.put("eeeeeee", 31);
+
+        for (Map.Entry<String, Integer> wordEntry : wordsToAppend.entrySet()) {
+            for (int i = 0; i < wordEntry.getValue(); ++i) {
+                sb.append(wordEntry.getKey());
+                sb.append(" ");
+            }
+        }
+
+        wordsToAppend.remove("ttttttt");
+        wordsToAppend.remove("aaaa");
+        wordsToAppend.remove("b");
+        TextAnalyzer analyzer = new TextAnalyzer(sb.toString());
+        Map<String, Integer> result = analyzer.topTenWords();
+
+        assertEquals(10, result.size());
+
+        for (Map.Entry<String, Integer> wordEntry : wordsToAppend.entrySet()) {
+            String word = wordEntry.getKey();
+            Integer number = wordEntry.getValue();
+
+            assertTrue(result.containsKey(word));
+            assertEquals(number, result.get(word));
+        }
     }
 }
