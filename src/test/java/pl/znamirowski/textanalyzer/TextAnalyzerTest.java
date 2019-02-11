@@ -51,4 +51,21 @@ public class TextAnalyzerTest {
     public void shouldThrowExceptionWhenTextIsNull() {
         new TextAnalyzer(null);
     }
+
+    @Test
+    public void shouldIgnoreNonAlphabeticalCharacters() {
+        // inner "-" and "'" aren't ignored only if they're surrounded by alphabetical characters
+
+        String text = "-aaabbb cccddd. aaabbb, !@#-$%^ aaa*bbb aaa-bbb (cccddd) qwer'ty";
+        TextAnalyzer analyzer = new TextAnalyzer(text);
+        Map<String, Integer> result = analyzer.topTenWords();
+
+        assertEquals(4, result.size());
+        assertTrue(result.containsKey("aaabbb"));
+        assertEquals(2, result.get("aaabbb").intValue());
+        assertTrue(result.containsKey("cccddd"));
+        assertEquals(2, result.get("cccddd").intValue());
+        assertTrue(result.containsKey("qwer'ty"));
+        assertEquals(1, result.get("qwer'ty").intValue());
+    }
 }

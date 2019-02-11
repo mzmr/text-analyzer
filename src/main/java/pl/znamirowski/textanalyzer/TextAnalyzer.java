@@ -1,6 +1,8 @@
 package pl.znamirowski.textanalyzer;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextAnalyzer {
 
@@ -14,16 +16,7 @@ public class TextAnalyzer {
     }
 
     public Map<String, Integer> topTenWords() {
-        Map<String, Integer> topTen = new HashMap<>();
-
-        for (String word : text.split(" ")) {
-            if (word.length() <= 5)
-                continue;
-
-            Integer count = topTen.getOrDefault(word, 0);
-            topTen.put(word, count + 1);
-        }
-
+        Map<String, Integer> topTen = splitAndAggregateWords(text);
         topTen = findAndSortTenMostPopularWords(topTen);
         
         return topTen;
@@ -40,5 +33,25 @@ public class TextAnalyzer {
             popularWords.put(wordList.get(i).getKey(), wordList.get(i).getValue());
 
         return popularWords;
+    }
+
+    private Map<String, Integer> splitAndAggregateWords(String text) {
+        final String regex = "[a-zA-Z]+(?>['-]?[a-zA-Z]+)?";
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(text);
+
+        Map<String, Integer> words = new HashMap<>();
+
+        while (matcher.find()) {
+            String word = matcher.group();
+
+            if (word.length() <= 5)
+                continue;
+
+            Integer count = words.getOrDefault(word, 0);
+            words.put(word, count + 1);
+        }
+
+        return words;
     }
 }
