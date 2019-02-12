@@ -87,8 +87,9 @@ public class TextAnalyzerTest {
     }
 
     @Test
-    public void shouldFindThreeNonAlphabericChars() {
+    public void shouldFindThreeNonAlphabeticChars() {
         TextAnalyzer analyzer = new TextAnalyzer("_\r?");
         assertEquals(3, analyzer.countNonAlphaChars());
     }
+
 }
