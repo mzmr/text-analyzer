@@ -1,4 +1,4 @@
-package pl.znamirowski.textanalyzer;
+package pl.znamirowski.textanalyzer.analyzer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

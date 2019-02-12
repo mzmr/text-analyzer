@@ -1,7 +1,8 @@
-package pl.znamirowski.textanalyzer;
+package pl.znamirowski.textanalyzer.analyzer;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import pl.znamirowski.textanalyzer.analyzer.WordCounter;
 
 import java.util.HashMap;
 import java.util.Map;

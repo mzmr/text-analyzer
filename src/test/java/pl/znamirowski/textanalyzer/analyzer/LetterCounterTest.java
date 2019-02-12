@@ -1,6 +1,7 @@
-package pl.znamirowski.textanalyzer;
+package pl.znamirowski.textanalyzer.analyzer;
 
 import org.junit.Test;
+import pl.znamirowski.textanalyzer.analyzer.LetterCounter;
 
 import java.util.Map;
 

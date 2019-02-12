@@ -1,4 +1,4 @@
-package pl.znamirowski.textanalyzer;
+package pl.znamirowski.textanalyzer.analyzer;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

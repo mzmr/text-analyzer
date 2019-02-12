@@ -1,4 +1,4 @@
-package pl.znamirowski.textanalyzer;
+package pl.znamirowski.textanalyzer.analyzer;
 
 import org.apache.commons.lang3.StringUtils;
 
