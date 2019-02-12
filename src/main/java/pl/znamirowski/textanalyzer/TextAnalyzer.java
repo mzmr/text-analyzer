@@ -12,6 +12,7 @@ public class TextAnalyzer {
     private Integer sentenceCount;
     private Integer whitespaceCount;
     private Integer nonAlphabeticCount;
+    private Map<Character, Integer> lettersCount;
 
     public TextAnalyzer(String text) {
         if (text == null)
@@ -67,5 +68,12 @@ public class TextAnalyzer {
 
         nonAlphabeticCount = text.length() - letters;
         return nonAlphabeticCount;
+    }
+
+    public Map<Character, Integer> countLetters() {
+        if (lettersCount == null)
+            lettersCount = LetterCounter.countLetters(text);
+
+        return lettersCount;
     }
 }
