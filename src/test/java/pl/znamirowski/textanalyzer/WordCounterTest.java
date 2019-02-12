@@ -1,9 +1,11 @@
 package pl.znamirowski.textanalyzer;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -67,33 +69,11 @@ public class WordCounterTest {
 
     @Test
     public void shouldReturnTenMostPopularWords() {
-        StringBuilder sb = new StringBuilder();
-        Map<String, Integer> wordsToAppend = new HashMap<>();
-        wordsToAppend.put("ttttttt", 3);  // too few
-        wordsToAppend.put("sssssss", 4);
-        wordsToAppend.put("llllllll", 10);
-        wordsToAppend.put("cccccc", 11);
-        wordsToAppend.put("wwwwwwww", 13);
-        wordsToAppend.put("aaaa", 16);  // too short
-        wordsToAppend.put("hhhhhh", 17);
-        wordsToAppend.put("rrrrrr", 18);
-        wordsToAppend.put("xxxxxxx", 19);
-        wordsToAppend.put("b", 22);  // too short
-        wordsToAppend.put("bbbbbbb", 24);
-        wordsToAppend.put("yyyyyyyyy", 26);
-        wordsToAppend.put("eeeeeee", 31);
+        Map<String, Integer> wordsToAppend = createSampleMapOfWords();
+        String text = createSampleText(wordsToAppend);
 
-        for (Map.Entry<String, Integer> wordEntry : wordsToAppend.entrySet()) {
-            for (int i = 0; i < wordEntry.getValue(); ++i) {
-                sb.append(wordEntry.getKey());
-                sb.append(" ");
-            }
-        }
-
-        wordsToAppend.remove("ttttttt");
-        wordsToAppend.remove("aaaa");
-        wordsToAppend.remove("b");
-        Map<String, Integer> result = WordCounter.topTenWords(sb.toString());
+        Stream.of("ttttttt", "aaaa", "b").forEach(wordsToAppend::remove);
+        Map<String, Integer> result = WordCounter.topTenWords(text);
 
         assertEquals(10, result.size());
 
@@ -104,6 +84,35 @@ public class WordCounterTest {
             assertTrue(result.containsKey(word));
             assertEquals(number, result.get(word));
         }
+    }
+
+    private Map<String, Integer> createSampleMapOfWords() {
+        Map<String, Integer> words = new HashMap<>();
+        words.put("ttttttt", 3);  // too few
+        words.put("sssssss", 4);
+        words.put("llllllll", 10);
+        words.put("cccccc", 11);
+        words.put("wwwwwwww", 13);
+        words.put("aaaa", 16);  // too short
+        words.put("hhhhhh", 17);
+        words.put("rrrrrr", 18);
+        words.put("xxxxxxx", 19);
+        words.put("b", 22);  // too short
+        words.put("bbbbbbb", 24);
+        words.put("yyyyyyyyy", 26);
+        words.put("eeeeeee", 31);
+        return words;
+    }
+
+    private String createSampleText(Map<String,Integer> wordsToAppend) {
+        StringBuilder sb = new StringBuilder();
+
+        for (Map.Entry<String, Integer> wordEntry : wordsToAppend.entrySet()) {
+            sb.append(StringUtils.repeat(wordEntry.getKey()," ", wordEntry.getValue()));
+            sb.append(' ');
+        }
+
+        return sb.toString();
     }
 
 }
