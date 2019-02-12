@@ -1,5 +1,7 @@
 package pl.znamirowski.textanalyzer;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,6 +37,16 @@ public class TextAnalyzer {
         return count;
     }
 
+    public int countWhitespaceChars() {
+        char[] whites = { ' ', '\t', '\n', '\f', '\r' };
+        int counter = 0;
+
+        for (char c : whites)
+            counter += StringUtils.countMatches(text, c);
+
+        return counter;
+    }
+
     private Map<String, Integer> findAndSortTenMostPopularWords(Map<String, Integer> words) {
         List<Map.Entry<String, Integer>> wordList = new ArrayList<>(words.entrySet());
         wordList.sort(Map.Entry.comparingByValue());
@@ -68,4 +80,5 @@ public class TextAnalyzer {
 
         return words;
     }
+
 }

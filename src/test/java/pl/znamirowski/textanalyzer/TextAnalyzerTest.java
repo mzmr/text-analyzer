@@ -144,4 +144,30 @@ public class TextAnalyzerTest {
         assertEquals(3, countSentences(text));
     }
 
+    private int countWhites(String text) {
+        TextAnalyzer analyzer = new TextAnalyzer(text);
+        return analyzer.countWhitespaceChars();
+    }
+
+    @Test
+    public void shouldFindNoWhitespaceCharsWhenTextIsEmpty() {
+        assertEquals(0, countWhites(""));
+    }
+
+    @Test
+    public void shouldFindNoWhitespace() {
+        String text = "Aab()*!@#$,NJn11?<>.//\\\\";
+        assertEquals(0, countWhites(text));
+    }
+
+    @Test
+    public void shouldFindOneWhitespace() {
+        assertEquals(1, countWhites(" "));
+    }
+
+    @Test
+    public void shouldFindAllWhitespaceChars() {
+        String text = "\r\n\r\f \t\txxx xx! \n";
+        assertEquals(10, countWhites(text));
+    }
 }
