@@ -43,6 +43,7 @@ public class WordCounter {
             if (word.length() <= 5)
                 continue;
 
+            word = word.toLowerCase();
             Integer count = words.getOrDefault(word, 0);
             words.put(word, count + 1);
         }

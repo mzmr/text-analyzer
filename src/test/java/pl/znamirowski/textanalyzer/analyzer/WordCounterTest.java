@@ -2,7 +2,6 @@ package pl.znamirowski.textanalyzer.analyzer;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import pl.znamirowski.textanalyzer.analyzer.WordCounter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -116,4 +115,13 @@ public class WordCounterTest {
         return sb.toString();
     }
 
+    @Test
+    public void shouldConvertToLowerCase() {
+        String text = "LONGWORD longword LoNgWoRd";
+        Map<String, Integer> result = WordCounter.topTenWords(text);
+
+        assertEquals(1, result.size());
+        assertTrue(result.containsKey("longword"));
+        assertEquals(3, result.get("longword").intValue());
+    }
 }
