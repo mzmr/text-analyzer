@@ -53,8 +53,7 @@ public class TextAnalyzerTest {
     }
 
     private int countCharacters(String text) {
-        TextAnalyzer analyzer = new TextAnalyzer(text);
-        return analyzer.countCharacters();
+        return new TextAnalyzer(text).countCharacters();
     }
 
     @Test
@@ -68,28 +67,36 @@ public class TextAnalyzerTest {
         assertEquals(100, countCharacters(text));
     }
 
+    private int countNonAlphaChars(String text) {
+        return new TextAnalyzer(text).countNonAlphaChars();
+    }
+
     @Test
     public void shouldFindZeroNonAlphabeticCharsWhenTextIsEmpty() {
-        TextAnalyzer analyzer = new TextAnalyzer("");
-        assertEquals(0, analyzer.countNonAlphaChars());
+        assertEquals(0, countNonAlphaChars(""));
     }
 
     @Test
     public void shouldFindZeroNonAlphabeticCharsWhenThereAreOnlyLetters() {
-        TextAnalyzer analyzer = new TextAnalyzer("AbbbccXxYyZzqqQ");
-        assertEquals(0, analyzer.countNonAlphaChars());
+        assertEquals(0, countNonAlphaChars("AbbbccXxYyZzqqQ"));
     }
 
     @Test
     public void shouldFindAllFiveNonAlphabeticChars() {
-        TextAnalyzer analyzer = new TextAnalyzer("ZZ 123 abc");
-        assertEquals(5, analyzer.countNonAlphaChars());
+        assertEquals(5, countNonAlphaChars("ZZ 123 abc"));
     }
 
     @Test
     public void shouldFindThreeNonAlphabeticChars() {
-        TextAnalyzer analyzer = new TextAnalyzer("_\r?");
-        assertEquals(3, analyzer.countNonAlphaChars());
+        assertEquals(3, countNonAlphaChars("_\r?"));
     }
 
+    @Test
+    public void shouldAlwaysReturnEqualNumber() {
+        TextAnalyzer analyzer = new TextAnalyzer("Bbb pp. Aa ii, eee - ii? O!");
+        int number = analyzer.countSentences();
+
+        for (int i = 0; i < 100; i++)
+            assertEquals(number, analyzer.countSentences());
+    }
 }
