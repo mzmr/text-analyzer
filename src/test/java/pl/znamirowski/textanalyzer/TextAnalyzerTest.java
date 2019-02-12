@@ -25,39 +25,6 @@ public class TextAnalyzerTest {
         assertEquals(0, resultSecond.size());
     }
 
-    private int countSentences(String text) {
-        TextAnalyzer analyzer = new TextAnalyzer(text);
-        return analyzer.countSentences();
-    }
-
-    @Test
-    public void shouldFindNoSentencesWhenTextIsEmpty() {
-        assertEquals(0, countSentences(""));
-    }
-
-    @Test
-    public void shouldFindNoSentencesWhenThereAreNoLetters() {
-        assertEquals(0, countSentences("  .. .,. !  ? , . ()"));
-    }
-
-    @Test
-    public void shouldFindNoSentenceWhenThereIsNoStopChar() {
-        String text = "aa bb cccccccc dd, eee; ffff'rr pppp-eeee (aaax)";
-        assertEquals(0, countSentences(text));
-    }
-
-    @Test
-    public void shouldFindOneSentence() {
-        String text = "aaa beee, z pppp uuuu\n\r.rrrr tttt";
-        assertEquals(1, countSentences(text));
-    }
-
-    @Test
-    public void shouldFindThreeSentences() {
-        String text = "a.bb1234?! ppp uuu! &%$ ( ,).";
-        assertEquals(3, countSentences(text));
-    }
-
     private int countWhites(String text) {
         TextAnalyzer analyzer = new TextAnalyzer(text);
         return analyzer.countWhitespaceChars();

@@ -2,9 +2,8 @@ package pl.znamirowski.textanalyzer;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class TextAnalyzer {
 
@@ -28,19 +27,9 @@ public class TextAnalyzer {
     }
 
     public int countSentences() {
-        if (sentenceCount != null)
-            return sentenceCount;
+        if (sentenceCount == null)
+            sentenceCount = SentenceCounter.countSentences(text);
 
-        final String regex = "[a-zA-Z]+[^.?!]*[.?!]";
-        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        final Matcher matcher = pattern.matcher(text);
-
-        int count = 0;
-
-        while (matcher.find())
-            ++count;
-
-        sentenceCount = count;
         return sentenceCount;
     }
 
