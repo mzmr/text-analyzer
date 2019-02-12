@@ -10,6 +10,8 @@ public class TextAnalyzer {
 
     private final String text;
     private Map<String, Integer> topTenWords;
+    private Integer sentenceCount;
+    private Integer whitespaceCount;
 
     public TextAnalyzer(String text) {
         if (text == null)
@@ -26,6 +28,9 @@ public class TextAnalyzer {
     }
 
     public int countSentences() {
+        if (sentenceCount != null)
+            return sentenceCount;
+
         final String regex = "[a-zA-Z]+[^.?!]*[.?!]";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(text);
@@ -35,17 +40,22 @@ public class TextAnalyzer {
         while (matcher.find())
             ++count;
 
-        return count;
+        sentenceCount = count;
+        return sentenceCount;
     }
 
     public int countWhitespaceChars() {
+        if (whitespaceCount != null)
+            return whitespaceCount;
+
         char[] whites = { ' ', '\t', '\n', '\f', '\r' };
         int counter = 0;
 
         for (char c : whites)
             counter += StringUtils.countMatches(text, c);
 
-        return counter;
+        whitespaceCount = counter;
+        return whitespaceCount;
     }
 
     public int countCharacters() {
