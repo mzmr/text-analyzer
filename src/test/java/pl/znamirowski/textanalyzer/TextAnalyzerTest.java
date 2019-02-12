@@ -1,5 +1,6 @@
 package pl.znamirowski.textanalyzer;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -170,4 +171,21 @@ public class TextAnalyzerTest {
         String text = "\r\n\r\f \t\txxx xx! \n";
         assertEquals(10, countWhites(text));
     }
+
+    private int countCharacters(String text) {
+        TextAnalyzer analyzer = new TextAnalyzer(text);
+        return analyzer.countCharacters();
+    }
+
+    @Test
+    public void shouldFindNoCharactersWhenTextIsEmpty() {
+        assertEquals(0, countCharacters(""));
+    }
+
+    @Test
+    public void shouldFindOneHundredCharacters() {
+        String text = StringUtils.repeat("Word ", 20);
+        assertEquals(100, countCharacters(text));
+    }
+
 }

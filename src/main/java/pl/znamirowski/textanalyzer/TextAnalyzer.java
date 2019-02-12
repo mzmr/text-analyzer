@@ -47,6 +47,10 @@ public class TextAnalyzer {
         return counter;
     }
 
+    public int countCharacters() {
+        return text.length();
+    }
+
     private Map<String, Integer> findAndSortTenMostPopularWords(Map<String, Integer> words) {
         List<Map.Entry<String, Integer>> wordList = new ArrayList<>(words.entrySet());
         wordList.sort(Map.Entry.comparingByValue());
