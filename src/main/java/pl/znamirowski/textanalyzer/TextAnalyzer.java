@@ -11,6 +11,7 @@ public class TextAnalyzer {
     private Map<String, Integer> topTenWords;
     private Integer sentenceCount;
     private Integer whitespaceCount;
+    private Integer nonAlphabeticCount;
 
     public TextAnalyzer(String text) {
         if (text == null)
@@ -51,4 +52,20 @@ public class TextAnalyzer {
         return text.length();
     }
 
+    public int countNonAlphaChars() {
+        if (nonAlphabeticCount != null)
+            return nonAlphabeticCount;
+
+        int letters = 0;
+
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+
+            if (Character.isLetter(c))
+                ++letters;
+        }
+
+        nonAlphabeticCount = text.length() - letters;
+        return nonAlphabeticCount;
+    }
 }

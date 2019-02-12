@@ -68,4 +68,27 @@ public class TextAnalyzerTest {
         assertEquals(100, countCharacters(text));
     }
 
+    @Test
+    public void shouldFindZeroNonAlphabeticCharsWhenTextIsEmpty() {
+        TextAnalyzer analyzer = new TextAnalyzer("");
+        assertEquals(0, analyzer.countNonAlphaChars());
+    }
+
+    @Test
+    public void shouldFindZeroNonAlphabeticCharsWhenThereAreOnlyLetters() {
+        TextAnalyzer analyzer = new TextAnalyzer("AbbbccXxYyZzqqQ");
+        assertEquals(0, analyzer.countNonAlphaChars());
+    }
+
+    @Test
+    public void shouldFindAllFiveNonAlphabeticChars() {
+        TextAnalyzer analyzer = new TextAnalyzer("ZZ 123 abc");
+        assertEquals(5, analyzer.countNonAlphaChars());
+    }
+
+    @Test
+    public void shouldFindThreeNonAlphabericChars() {
+        TextAnalyzer analyzer = new TextAnalyzer("_\r?");
+        assertEquals(3, analyzer.countNonAlphaChars());
+    }
 }
