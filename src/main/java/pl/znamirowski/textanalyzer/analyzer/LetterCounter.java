@@ -14,7 +14,7 @@ public class LetterCounter {
             _letters.put(letter, 0);
     }
 
-    public static Map<Character, Integer> countLetters(String text) {
+    static Map<Character, Integer> countLetters(String text) {
         if (text == null)
             throw new NullPointerException();
 

@@ -9,7 +9,7 @@ public class WordCounter {
     private final static String regex = "[a-zA-Z]+(?>['-]?[a-zA-Z]+)?";
     private final static Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 
-    public static Map<String, Integer> topTenWords(String text) {
+    static Map<String, Integer> topTenWords(String text) {
         if (text == null)
             throw new NullPointerException();
 

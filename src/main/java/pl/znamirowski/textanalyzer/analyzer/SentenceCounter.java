@@ -8,7 +8,7 @@ public class SentenceCounter {
     private final static String regex = "[a-zA-Z]+[^.?!]*[.?!]";
     private final static Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 
-    public static int countSentences(String text) {
+    static int countSentences(String text) {
         final Matcher matcher = pattern.matcher(text);
         int count = 0;
 
