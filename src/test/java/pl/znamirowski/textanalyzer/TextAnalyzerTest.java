@@ -10,20 +10,19 @@ import static org.junit.Assert.assertTrue;
 
 public class TextAnalyzerTest {
 
+    private boolean createdMapIsEmpty(String text) {
+        TextAnalyzer analyzer = new TextAnalyzer(text);
+        return analyzer.topTenWords().isEmpty();
+    }
+
     @Test
     public void shouldReturnEmptyMapWhenTextIsEmpty() {
-        String text = "";
-        TextAnalyzer analyzer = new TextAnalyzer(text);
-
-        assertTrue(analyzer.topTenWords().isEmpty());
+        assertTrue(createdMapIsEmpty(""));
     }
 
     @Test
     public void shouldReturnEmptyMapWhenNoWordIsLongerThanFive() {
-        String text = "this is some text with short words";
-        TextAnalyzer analyzer = new TextAnalyzer(text);
-
-        assertTrue(analyzer.topTenWords().isEmpty());
+        assertTrue(createdMapIsEmpty("this is some text with short words"));
     }
 
     @Test
@@ -112,48 +111,37 @@ public class TextAnalyzerTest {
         }
     }
 
+    private int countSentences(String text) {
+        TextAnalyzer analyzer = new TextAnalyzer(text);
+        return analyzer.countSentences();
+    }
+
     @Test
     public void shouldFindNoSentencesWhenTextIsEmpty() {
-        TextAnalyzer analyzer = new TextAnalyzer("");
-        int numberOfSentences = analyzer.countSentences();
-
-        assertEquals(0, numberOfSentences);
+        assertEquals(0, countSentences(""));
     }
 
     @Test
     public void shouldFindNoSentencesWhenThereAreNoLetters() {
-        String text = "  .. .,. !  ? , . ()";
-        TextAnalyzer analyzer = new TextAnalyzer(text);
-        int numberOfSentences = analyzer.countSentences();
-
-        assertEquals(0, numberOfSentences);
+        assertEquals(0, countSentences("  .. .,. !  ? , . ()"));
     }
 
     @Test
     public void shouldFindNoSentenceWhenThereIsNoStopChar() {
         String text = "aa bb cccccccc dd, eee; ffff'rr pppp-eeee (aaax)";
-        TextAnalyzer analyzer = new TextAnalyzer(text);
-        int numberOfSentences = analyzer.countSentences();
-
-        assertEquals(0, numberOfSentences);
+        assertEquals(0, countSentences(text));
     }
 
     @Test
     public void shouldFindOneSentence() {
-        String text = "aaa beee, z pppp uuuu.\n\rrrrr tttt";
-        TextAnalyzer analyzer = new TextAnalyzer(text);
-        int numberOfSentences = analyzer.countSentences();
-
-        assertEquals(1, numberOfSentences);
+        String text = "aaa beee, z pppp uuuu\n\r.rrrr tttt";
+        assertEquals(1, countSentences(text));
     }
 
     @Test
     public void shouldFindThreeSentences() {
         String text = "a.bb1234?! ppp uuu! &%$ ( ,).";
-        TextAnalyzer analyzer = new TextAnalyzer(text);
-        int numberOfSentences = analyzer.countSentences();
-
-        assertEquals(3, numberOfSentences);
+        assertEquals(3, countSentences(text));
     }
 
 }
