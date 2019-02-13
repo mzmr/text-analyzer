@@ -1,14 +1,13 @@
 package pl.znamirowski.textanalyzer.analyzer;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class LetterCounter {
 
     private static final Map<Character, Integer> _letters;
 
     static {
-        _letters = new LinkedHashMap<>();
+        _letters = new HashMap<>();
 
         for (char letter = 'a'; letter <= 'z'; ++letter)
             _letters.put(letter, 0);
@@ -31,11 +30,21 @@ public class LetterCounter {
             letters.put(c, number + 1);
         }
 
-        return letters;
+        return sortByValue(letters);
     }
 
     private static Map<Character, Integer> getLettersMap() {
-        return new LinkedHashMap<>(_letters);
+        return new HashMap<>(_letters);
+    }
+
+    private static Map<Character, Integer> sortByValue(Map<Character, Integer> map) {
+        List<Map.Entry<Character, Integer>> letterList = new ArrayList<>(map.entrySet());
+        letterList.sort(Map.Entry.comparingByValue());
+        Collections.reverse(letterList);
+
+        Map<Character, Integer> sortedLetters = new LinkedHashMap<>();
+        letterList.forEach(x -> sortedLetters.put(x.getKey(), x.getValue()));
+        return sortedLetters;
     }
 
 }

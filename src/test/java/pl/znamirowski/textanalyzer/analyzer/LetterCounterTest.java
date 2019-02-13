@@ -49,4 +49,19 @@ public class LetterCounterTest {
     public void shouldThrowExceptionWhenTextIsNull() {
         LetterCounter.countLetters(null);
     }
+
+    @Test
+    public void shouldSortLettersByPopularity() {
+        Map<Character, Integer> result = LetterCounter.countLetters("Zzz z ggg Aa B");
+        Character[] correctOrder = { 'z', 'g', 'a', 'b' };
+
+        int i = 0;
+
+        for (Character letter : result.keySet()) {
+            assertEquals(correctOrder[i++], letter);
+
+            if (i >= correctOrder.length)
+                break;
+        }
+    }
 }
